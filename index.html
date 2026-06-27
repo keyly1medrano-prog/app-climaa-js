@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App del Clima</title>
+
+<style>
+
+/* Fondo animado */
+body {
+
+    font-family: Arial, sans-serif;
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    background: linear-gradient(
+        -45deg,
+        #74b9ff,
+        #0984e3,
+        #6c5ce7,
+        #00cec9
+    );
+
+    background-size: 400% 400%;
+
+    animation: fondoAnimado 12s ease infinite;
+}
+
+/* Animación fondo */
+@keyframes fondoAnimado {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Caja principal */
+.contenedor {
+
+    width: 360px;
+
+    background: rgba(255,255,255,0.85);
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+    animation: aparecer 1s ease;
+}
+
+/* Animación entrada */
+@keyframes aparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(40px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+/* Título */
+h1 {
+
+    margin-bottom: 20px;
+
+    color: #222;
+
+    font-size: 40px;
+}
+
+/* Input */
+input {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    margin-bottom: 15px;
+
+    background: #dfe6e9;
+
+    box-sizing: border-box;
+}
+
+/* Botón */
+button {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #0984e3;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* Hover botón */
+button:hover {
+
+    transform: scale(1.05);
+
+    background: #0773c5;
+}
+
+/* Resultado */
+#resultado {
+
+    margin-top: 20px;
+}
+
+/* Tarjeta clima */
+.clima-card {
+
+    margin-top: 25px;
+
+    background: #f1f2f6;
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation: aparecer 1s ease;
+}
+
+/* Línea azul */
+.clima-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 6px;
+
+    height: 100%;
+
+    background: #0984e3;
+}
+
+/* Ciudad */
+.clima-card h2 {
+
+    margin-bottom: 20px;
+
+    color: #222;
+
+    font-size: 40px;
+}
+
+/* Icono */
+.icono {
+
+    font-size: 70px;
+
+    margin: 10px 0;
+
+    animation: flotar 3s infinite ease-in-out;
+}
+
+/* Animación icono */
+@keyframes flotar {
+
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Temperatura */
+.temperatura {
+
+    font-size: 60px;
+
+    color: #e17055;
+
+    font-weight: bold;
+
+    margin: 10px 0;
+}
+
+/* Descripción */
+.descripcion {
+
+    font-size: 24px;
+
+    color: #636e72;
+
+    margin-bottom: 20px;
+}
+
+/* Detalles */
+.detalles {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+}
+
+/* Caja detalles */
+.detalle {
+
+    background: white;
+
+    width: 120px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+
+    font-size: 14px;
+}
+
+/* Número */
+.detalle strong {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #0984e3;
+
+    font-size: 28px;
+}
+
+/* Pronóstico */
+#pronostico {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    gap: 10px;
+
+    overflow-x: auto;
+}
+
+/* Tarjetas pronóstico */
+.pronostico-card {
+
+    min-width: 90px;
+
+    background: rgba(255,255,255,0.3);
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    animation: subir 1s ease forwards;
+
+    transition: 0.3s;
+}
+
+/* Hover */
+.pronostico-card:hover {
+
+    transform: translateY(-8px) scale(1.05);
+
+    background: rgba(255,255,255,0.5);
+}
+
+/* Animación pronóstico */
+@keyframes subir {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+.pronostico-icono {
+
+    font-size: 35px;
+
+    margin: 10px 0;
+}
+
+.pronostico-temp {
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>🌤️ El Clima</h1>
+
+    <input type="text" id="ciudad" placeholder="Ingresa una ciudad">
+
+    <button onclick="buscarClima()">
+        Buscar Clima
+    </button>
+
+    <div id="resultado"></div>
+
+    <div id="pronostico"></div>
+
+</div>
+
+<script>
+
+function buscarClima() {
+
+    const ciudad = document.getElementById("ciudad").value;
+
+    const resultado = document.getElementById("resultado");
+
+    resultado.innerHTML = `
+
+    <div class="clima-card">
+
+        <h2>${ciudad}</h2>
+
+        <div class="icono">☁️</div>
+
+        <div class="temperatura">
+            10°C
+        </div>
+
+        <div class="descripcion">
+            Nublado
+        </div>
+
+        <div class="detalles">
+
+            <div class="detalle">
+                💧 Humedad
+                <strong>78%</strong>
+            </div>
+
+            <div class="detalle">
+                🍃 Viento
+                <strong>3.2 km/h</strong>
+            </div>
+
+        </div>
+
+    </div>
+    `;
+
+    // Pronóstico
+    const dias = [
+        { dia: "Lun", icono: "☀️", temp: "30°C" },
+        { dia: "Mar", icono: "⛅", temp: "28°C" },
+        { dia: "Mié", icono: "🌧️", temp: "25°C" },
+        { dia: "Jue", icono: "🌩️", temp: "24°C" },
+        { dia: "Vie", icono: "☀️", temp: "31°C" }
+    ];
+
+    let htmlPronostico = "";
+
+    dias.forEach((d, index) => {
+
+        htmlPronostico += `
+        
+        <div class="pronostico-card"
+             style="animation-delay:${index * 0.2}s">
+
+            <h4>${d.dia}</h4>
+
+            <div class="pronostico-icono">
+                ${d.icono}
+            </div>
+
+            <div class="pronostico-temp">
+                ${d.temp}
+            </div>
+
+        </div>
+        `;
+    });
+
+    document.getElementById("pronostico").innerHTML = htmlPronostico;
+}
+
+</script>
+
+</body>
+</html>
